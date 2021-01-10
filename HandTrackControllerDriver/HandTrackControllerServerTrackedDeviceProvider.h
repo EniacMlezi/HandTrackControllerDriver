@@ -1,5 +1,6 @@
 #pragma once
 #include <openvr_driver.h>
+#include <interface_gesture.hpp>
 #include "HandTrackController.h"
 
 class HandTrackControllerServerTrackedDeviceProvider final : public vr::IServerTrackedDeviceProvider
@@ -51,6 +52,8 @@ public:
 private:
 	HandTrackController m_leftcontroller;
 	HandTrackController m_rightcontroller;
+
+	int m_last_frameindex;
 
 	static const char* const ms_interfaces[];
 };
