@@ -54,6 +54,7 @@ private:
 	HandTrackController m_rightcontroller;
 
 	int m_last_frameindex;
+	bool m_initialized;
 
 	static const char* const ms_interfaces[];
 };

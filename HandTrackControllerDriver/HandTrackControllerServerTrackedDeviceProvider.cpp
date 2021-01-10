@@ -10,6 +10,7 @@ const char* const HandTrackControllerServerTrackedDeviceProvider::ms_interfaces[
 HandTrackControllerServerTrackedDeviceProvider::HandTrackControllerServerTrackedDeviceProvider()
 {
 	m_last_frameindex = -1;
+	m_initialized = false;
 }
 
 HandTrackControllerServerTrackedDeviceProvider::~HandTrackControllerServerTrackedDeviceProvider()
@@ -21,17 +22,7 @@ vr::EVRInitError HandTrackControllerServerTrackedDeviceProvider::Init(vr::IVRDri
 	VR_INIT_SERVER_DRIVER_CONTEXT(pDriverContext);
 	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Init: Enter.");
 
-	GestureOption option;
-	option.mode = GestureModeSkeleton;
-	option.backend = GestureBackendAuto;
-	option.maxFPS = -1;
-	GestureFailure result = StartGestureDetection(&option);
-	if (result != GestureFailureNone)
-	{
-		vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Init: Failed to start Hand Tracking.");
-		return vr::VRInitError_Init_Internal;
-	}
-
+	
 	vr::VRServerDriverHost()->TrackedDeviceAdded("HandTrackLeft", vr::TrackedDeviceClass_Controller, &m_leftcontroller);
 	vr::VRServerDriverHost()->TrackedDeviceAdded("HandTrackRight", vr::TrackedDeviceClass_Controller, &m_rightcontroller);
 
@@ -54,7 +45,25 @@ const char* const* HandTrackControllerServerTrackedDeviceProvider::GetInterfaceV
 
 void HandTrackControllerServerTrackedDeviceProvider::RunFrame()
 {
+#ifdef TRACE
 	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::RunFrame: Enter.");
+#endif // TRACE
+
+	if (!m_initialized)
+	{
+		GestureOption option;
+		option.mode = GestureModeSkeleton;
+		option.backend = GestureBackendAuto;
+		option.maxFPS = -1;
+		GestureFailure result = StartGestureDetection(&option);
+		if (result != GestureFailureNone)
+		{
+			vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Init: Failed to start Hand Tracking.");
+			return;
+		}
+		m_initialized = true;
+	}	
+
 	const GestureResult* points = NULL;
 
 	int frameIndex = -1;
@@ -77,7 +86,10 @@ void HandTrackControllerServerTrackedDeviceProvider::RunFrame()
 
 	m_leftcontroller.UpdatePose();
 	m_rightcontroller.UpdatePose();
+
+#ifdef TRACE
 	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::RunFrame: Exit.");
+#endif // TRACE
 }
 
 bool HandTrackControllerServerTrackedDeviceProvider::ShouldBlockStandbyMode()
