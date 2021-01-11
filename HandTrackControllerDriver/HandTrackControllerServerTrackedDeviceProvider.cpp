@@ -8,9 +8,11 @@ const char* const HandTrackControllerServerTrackedDeviceProvider::ms_interfaces[
 };
 
 HandTrackControllerServerTrackedDeviceProvider::HandTrackControllerServerTrackedDeviceProvider()
+	:	m_leftcontroller(HandTrackController(HandControllerHand::HCH_Left)),
+		m_rightcontroller(HandTrackController(HandControllerHand::HCH_Right)),
+		m_last_frameindex(-1),
+		m_initialized(false)
 {
-	m_last_frameindex = -1;
-	m_initialized = false;
 }
 
 HandTrackControllerServerTrackedDeviceProvider::~HandTrackControllerServerTrackedDeviceProvider()
@@ -22,7 +24,6 @@ vr::EVRInitError HandTrackControllerServerTrackedDeviceProvider::Init(vr::IVRDri
 	VR_INIT_SERVER_DRIVER_CONTEXT(pDriverContext);
 	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Init: Enter.");
 
-	
 	vr::VRServerDriverHost()->TrackedDeviceAdded("HandTrackLeft", vr::TrackedDeviceClass_Controller, &m_leftcontroller);
 	vr::VRServerDriverHost()->TrackedDeviceAdded("HandTrackRight", vr::TrackedDeviceClass_Controller, &m_rightcontroller);
 
@@ -49,6 +50,7 @@ void HandTrackControllerServerTrackedDeviceProvider::RunFrame()
 	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::RunFrame: Enter.");
 #endif // TRACE
 
+	//TODO: Move this to Init. The TrackedCamera must be set-up before the GestureDetection can start.
 	if (!m_initialized)
 	{
 		GestureOption option;
@@ -81,11 +83,15 @@ void HandTrackControllerServerTrackedDeviceProvider::RunFrame()
 
 	for (int i = 0; i < size; ++i)
 	{
-		vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::RunFrame: Got A Gesture.");
+		if (points[i].isLeft)
+		{
+			m_leftcontroller.UpdatePose();
+		}
+		else
+		{
+			m_rightcontroller.UpdatePose();
+		}
 	}
-
-	m_leftcontroller.UpdatePose();
-	m_rightcontroller.UpdatePose();
 
 #ifdef TRACE
 	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::RunFrame: Exit.");

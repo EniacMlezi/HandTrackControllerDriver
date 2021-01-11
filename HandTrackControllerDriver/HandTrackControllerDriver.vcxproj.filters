@@ -32,9 +32,12 @@
     <ClInclude Include="HandTrackControllerServerTrackedDeviceProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HandControllerHand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="driver.vrdrivermanifest">
+    <None Include="Resources\driver.vrdrivermanifest">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

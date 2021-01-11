@@ -6,12 +6,6 @@
 class HandTrackControllerServerTrackedDeviceProvider final : public vr::IServerTrackedDeviceProvider
 {
 public:
-	enum HandControllerHand : size_t
-	{
-		HCH_Left = 0U,
-		HCH_Right = 1U,
-	};
-
 	/** initializes the driver. This will be called before any other methods are called.
 	* If Init returns anything other than VRInitError_None the driver DLL will be unloaded.
 	*
