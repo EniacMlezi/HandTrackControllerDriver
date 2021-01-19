@@ -67,7 +67,6 @@ void HandTrackControllerServerTrackedDeviceProvider::RunFrame()
 	}	
 
 	const GestureResult* points = NULL;
-
 	int frameIndex = -1;
 	int size = GetGestureResult(&points, &frameIndex);
 	if (frameIndex < 0) 
@@ -77,6 +76,8 @@ void HandTrackControllerServerTrackedDeviceProvider::RunFrame()
 	}
 	else if (frameIndex == m_last_frameindex)
 	{
+		m_leftcontroller.UpdatePose(nullptr);
+		m_rightcontroller.UpdatePose(nullptr);
 		return;	//No new gesture yet, don't process.
 	}
 	m_last_frameindex = frameIndex;
@@ -85,11 +86,11 @@ void HandTrackControllerServerTrackedDeviceProvider::RunFrame()
 	{
 		if (points[i].isLeft)
 		{
-			m_leftcontroller.UpdatePose();
+			m_leftcontroller.UpdatePose(&points[i]);
 		}
 		else
 		{
-			m_rightcontroller.UpdatePose();
+			m_rightcontroller.UpdatePose(&points[i]);
 		}
 	}
 

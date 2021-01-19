@@ -1,6 +1,8 @@
 #pragma once
 
 #include <openvr_driver.h>
+#include <interface_gesture.hpp>
+#include <windows.h>
 #include "HandControllerHand.h"
 
 class HandTrackController final : public vr::ITrackedDeviceServerDriver
@@ -42,14 +44,19 @@ public:
 
 #pragma region HandTrackController
 	HandTrackController(HandControllerHand hand);
-	void UpdatePose();
+	void UpdatePose(const GestureResult* gesture);
+	void UpdateLeftHand();
+	void UpdateRightHand();
 #pragma endregion
 
-private:
+private:	
 	HandControllerHand m_hand;
+
+	double m_vecPosition[3];
+	double m_qRotation[4];
 
 	uint32_t m_trackedDeviceObjectId;
 	vr::PropertyContainerHandle_t m_propertyContainer;
-	vr::DriverPose_t m_pose;
+	vr::DriverPose_t m_last_pose;
 };
 

@@ -129,7 +129,7 @@
       <Command>xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows32\aristo_interface.dll" "$(OutDir)"
 xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows32\cosmos_camera.dll" "$(OutDir)"
 
-xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources"
+xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
 $(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
     </PostBuildEvent>
     <CustomBuildStep>
@@ -162,7 +162,7 @@ $(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
       <Command>xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows32\aristo_interface.dll" "$(OutDir)"
 xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows32\cosmos_camera.dll" "$(OutDir)"
 
-xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources"
+xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
 $(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
     </PostBuildEvent>
     <CustomBuildStep>
@@ -191,7 +191,7 @@ $(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
       <Command>xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows64\aristo_interface.dll" "$(OutDir)"
 xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows64\cosmos_camera.dll" "$(OutDir)"
 
-xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources"
+xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
 "$(SteamVRDir)bin\win64\vrpathreg.exe" adddriver "$(OutDir)..\.."</Command>
     </PostBuildEvent>
     <CustomBuildStep>
@@ -224,7 +224,7 @@ xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources"
       <Command>xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows64\aristo_interface.dll" "$(OutDir)"
 xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows64\cosmos_camera.dll" "$(OutDir)"
 
-xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources"
+xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
 "$(SteamVRDir)bin\win64\vrpathreg.exe" adddriver "$(OutDir)..\.."</Command>
     </PostBuildEvent>
     <CustomBuildStep>
