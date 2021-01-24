@@ -34,6 +34,7 @@ vr::EVRInitError HandTrackControllerServerTrackedDeviceProvider::Init(vr::IVRDri
 void HandTrackControllerServerTrackedDeviceProvider::Cleanup()
 {
 	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Cleanup: Enter.");
+	VR_CLEANUP_SERVER_DRIVER_CONTEXT();
 	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Cleanup: Exit.");
 }
 
