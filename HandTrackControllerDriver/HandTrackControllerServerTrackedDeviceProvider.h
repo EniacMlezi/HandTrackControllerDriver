@@ -44,11 +44,11 @@ public:
 	~HandTrackControllerServerTrackedDeviceProvider();
 
 private:
-	HandTrackController m_leftcontroller;
-	HandTrackController m_rightcontroller;
+	HandTrackController *m_leftcontroller = nullptr;
+	HandTrackController *m_rightcontroller = nullptr;
 
-	int m_last_frameindex;
-	bool m_initialized;
+	int m_last_frameindex = -1;
+	bool m_initialized = false;
 
 	static const char* const ms_interfaces[];
 };

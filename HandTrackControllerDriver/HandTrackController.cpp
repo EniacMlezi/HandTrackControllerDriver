@@ -10,7 +10,6 @@ vr::EVRInitError HandTrackController::Activate(uint32_t unObjectId)
 		m_trackedDeviceObjectId = unObjectId;
 		m_propertyContainer = vr::VRProperties()->TrackedDeviceToPropertyContainer(m_trackedDeviceObjectId);
 
-		vr::VRProperties()->SetUint64Property(m_propertyContainer, vr::Prop_CurrentUniverseId_Uint64, 2);
 		vr::VRProperties()->SetStringProperty(m_propertyContainer, vr::Prop_ModelNumber_String, "handtrack_controller");
 		vr::VRProperties()->SetInt32Property(m_propertyContainer, vr::Prop_DeviceClass_Int32, vr::TrackedDeviceClass_Controller);
 
@@ -37,9 +36,6 @@ vr::EVRInitError HandTrackController::Activate(uint32_t unObjectId)
 		std::string controller_not_ready_file = "{handtrack}/icons/controller_not_ready_" + controller_handedness_str + ".png";
 		const char* controller_ready_file_cstr = controller_ready_file.c_str();
 		const char* controller_not_ready_file_cstr = controller_not_ready_file.c_str();
-
-		// Set up a render model path
-		//vr::VRProperties()->SetStringProperty(m_propertyContainer, vr::Prop_RenderModelName_String, "vr_controller_01_mrhat");
 
 		vr::VRProperties()->SetStringProperty(m_propertyContainer, vr::Prop_NamedIconPathDeviceOff_String, controller_not_ready_file_cstr);
 		vr::VRProperties()->SetStringProperty(m_propertyContainer, vr::Prop_NamedIconPathDeviceSearching_String, controller_not_ready_file_cstr);
@@ -100,7 +96,7 @@ vr::DriverPose_t HandTrackController::GetPose()
 #pragma region HandTrackController
 HandTrackController::HandTrackController(HandControllerHand hand)
 :	m_hand(hand),
-	m_vecPosition { 0, 0.7, 0 },
+	m_vecPosition { 0, 0, 0 },
 	m_qRotation { 1, 0, 0, 0 },
 	m_trackedDeviceObjectId(vr::k_unTrackedDeviceIndexInvalid),
 	m_propertyContainer(vr::k_ulInvalidPropertyContainer),
@@ -131,13 +127,26 @@ void HandTrackController::UpdatePose(const GestureResult *gesture)
 			UpdateLeftHand();
 		}
 
-		l_pose.vecPosition[0] = m_vecPosition[0];
+		l_pose.vecWorldFromDriverTranslation[0] = 0.302428544;
+		l_pose.vecWorldFromDriverTranslation[1] = -1.25425005;
+		l_pose.vecWorldFromDriverTranslation[2] = -1.22407806;
+
+		l_pose.qWorldFromDriverRotation.w = -0.383;
+		l_pose.qWorldFromDriverRotation.x = 0;
+		l_pose.qWorldFromDriverRotation.y = -0.924;
+		l_pose.qWorldFromDriverRotation.z = 0;
+
+		/*l_pose.vecPosition[0] = m_vecPosition[0];
 		l_pose.vecPosition[1] = m_vecPosition[1];
-		l_pose.vecPosition[2] = m_vecPosition[2];
+		l_pose.vecPosition[2] = m_vecPosition[2];*/
+
+		l_pose.vecPosition[0] = gesture->points[0];
+		l_pose.vecPosition[1] = gesture->points[1];
+		l_pose.vecPosition[2] = -gesture->points[2];
 		
-		l_pose.qRotation.w = 0;
+		l_pose.qRotation.w = 1;
 		l_pose.qRotation.x = 0;
-		l_pose.qRotation.y = 1;
+		l_pose.qRotation.y = 0;
 		l_pose.qRotation.z = 0;
 
 		/*std::string controller_handedness_str = m_hand == HandControllerHand::HCH_Left ? "left" : "right";

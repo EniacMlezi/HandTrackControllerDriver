@@ -8,10 +8,6 @@ const char* const HandTrackControllerServerTrackedDeviceProvider::ms_interfaces[
 };
 
 HandTrackControllerServerTrackedDeviceProvider::HandTrackControllerServerTrackedDeviceProvider()
-	:	m_leftcontroller(HandTrackController(HandControllerHand::HCH_Left)),
-		m_rightcontroller(HandTrackController(HandControllerHand::HCH_Right)),
-		m_last_frameindex(-1),
-		m_initialized(false)
 {
 }
 
@@ -24,8 +20,10 @@ vr::EVRInitError HandTrackControllerServerTrackedDeviceProvider::Init(vr::IVRDri
 	VR_INIT_SERVER_DRIVER_CONTEXT(pDriverContext);
 	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Init: Enter.");
 
-	vr::VRServerDriverHost()->TrackedDeviceAdded("HandTrackLeft", vr::TrackedDeviceClass_Controller, &m_leftcontroller);
-	vr::VRServerDriverHost()->TrackedDeviceAdded("HandTrackRight", vr::TrackedDeviceClass_Controller, &m_rightcontroller);
+	m_leftcontroller = new HandTrackController(HandControllerHand::HCH_Left);
+	m_rightcontroller = new HandTrackController(HandControllerHand::HCH_Right);
+	vr::VRServerDriverHost()->TrackedDeviceAdded("HandTrackLeft", vr::TrackedDeviceClass_Controller, m_leftcontroller);
+	vr::VRServerDriverHost()->TrackedDeviceAdded("HandTrackRight", vr::TrackedDeviceClass_Controller, m_rightcontroller);
 
 	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Init: Exit.");
 	return vr::VRInitError_None;
@@ -77,8 +75,8 @@ void HandTrackControllerServerTrackedDeviceProvider::RunFrame()
 	}
 	else if (frameIndex == m_last_frameindex)
 	{
-		m_leftcontroller.UpdatePose(nullptr);
-		m_rightcontroller.UpdatePose(nullptr);
+		m_leftcontroller->UpdatePose(nullptr);
+		m_rightcontroller->UpdatePose(nullptr);
 		return;	//No new gesture yet, don't process.
 	}
 	m_last_frameindex = frameIndex;
@@ -87,11 +85,11 @@ void HandTrackControllerServerTrackedDeviceProvider::RunFrame()
 	{
 		if (points[i].isLeft)
 		{
-			m_leftcontroller.UpdatePose(&points[i]);
+			m_leftcontroller->UpdatePose(&points[i]);
 		}
 		else
 		{
-			m_rightcontroller.UpdatePose(&points[i]);
+			m_rightcontroller->UpdatePose(&points[i]);
 		}
 	}
 
