@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <SteamVRDir>E:\Program Files (x86)\Steam\steamapps\common\SteamVR\</SteamVRDir>
+    <SteamVRDir>D:\Program Files (x86)\Steam\steamapps\common\SteamVR\</SteamVRDir>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />

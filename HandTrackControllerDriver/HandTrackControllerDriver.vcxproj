@@ -180,12 +180,12 @@ $(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\openvr\headers;$(SolutionDir)Libraries\ViveHandTracking\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\ViveHandTracking\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(SolutionDir)\Libraries\openvr\lib\win64\openvr_api.lib;$(SolutionDir)\Libraries\ViveHandTracking\libs\Windows64\aristo_interface.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)\Libraries\ViveHandTracking\libs\Windows64\aristo_interface.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows64\aristo_interface.dll" "$(OutDir)"

@@ -119,96 +119,32 @@ void HandTrackController::UpdatePose(const GestureResult *gesture)
 		l_pose.poseIsValid = true;
 		l_pose.result = vr::TrackingResult_Running_OK;
 
-		l_pose.qDriverFromHeadRotation.w = 1;
-		l_pose.qWorldFromDriverRotation.w = 1;
+		l_pose.qDriverFromHeadRotation.w = 0.707;
+		l_pose.qDriverFromHeadRotation.x = 0.707;
+		l_pose.qDriverFromHeadRotation.y = 0;
+		l_pose.qDriverFromHeadRotation.z = 0;
 
-		if (m_hand == HandControllerHand::HCH_Left)
-		{
-			UpdateLeftHand();
-		}
+		//D:\Program Files (x86)\Steam\config\chaperone_info.vrchap
+		l_pose.vecWorldFromDriverTranslation[0] = 0.292041361;
+		l_pose.vecWorldFromDriverTranslation[1] = -1.2410183;
+		l_pose.vecWorldFromDriverTranslation[2] = -1.0129745;
 
-		l_pose.vecWorldFromDriverTranslation[0] = 0.302428544;
-		l_pose.vecWorldFromDriverTranslation[1] = -1.25425005;
-		l_pose.vecWorldFromDriverTranslation[2] = -1.22407806;
-
-		l_pose.qWorldFromDriverRotation.w = -0.383;
+		l_pose.qWorldFromDriverRotation.w = -0.423;
 		l_pose.qWorldFromDriverRotation.x = 0;
-		l_pose.qWorldFromDriverRotation.y = -0.924;
+		l_pose.qWorldFromDriverRotation.y = -0.906;
 		l_pose.qWorldFromDriverRotation.z = 0;
 
-		/*l_pose.vecPosition[0] = m_vecPosition[0];
-		l_pose.vecPosition[1] = m_vecPosition[1];
-		l_pose.vecPosition[2] = m_vecPosition[2];*/
+		l_pose.vecPosition[0] = gesture->position.x;
+		l_pose.vecPosition[1] = gesture->position.y;
+		l_pose.vecPosition[2] = -gesture->position.z;
 
-		l_pose.vecPosition[0] = gesture->points[0];
-		l_pose.vecPosition[1] = gesture->points[1];
-		l_pose.vecPosition[2] = -gesture->points[2];
-		
-		l_pose.qRotation.w = 1;
-		l_pose.qRotation.x = 0;
-		l_pose.qRotation.y = 0;
-		l_pose.qRotation.z = 0;
-
-		/*std::string controller_handedness_str = m_hand == HandControllerHand::HCH_Left ? "left" : "right";
-		std::string gesturePoseMsg = "HandTrackController::UpdatePose: " + controller_handedness_str + " [" + std::to_string(gesture->points[0]) + "] [" + std::to_string(gesture->points[1]) + "] [" + std::to_string(gesture->points[2]) + "]";
-		vr::VRDriverLog()->Log(gesturePoseMsg.c_str());*/
+		l_pose.qRotation.w = -gesture->rotations[9].w;
+		l_pose.qRotation.x = gesture->rotations[9].x;
+		l_pose.qRotation.y = gesture->rotations[9].y;
+		l_pose.qRotation.z = -gesture->rotations[9].z;
 	}
 
 	vr::VRServerDriverHost()->TrackedDevicePoseUpdated(m_trackedDeviceObjectId, l_pose, sizeof(vr::DriverPose_t));
 	m_last_pose = l_pose;
-}
-
-void HandTrackController::UpdateLeftHand()
-{
-	//if ((GetAsyncKeyState(70) & 0x8000) != 0) { //F
-	//	cyaw += 0.1;
-	//}
-	//if ((GetAsyncKeyState(72) & 0x8000) != 0) { //H
-	//	cyaw += -0.1;                                       
-	//}
-	//if ((GetAsyncKeyState(84) & 0x8000) != 0) { //T
-	//	croll += 0.1;
-	//}
-	//if ((GetAsyncKeyState(71) & 0x8000) != 0) { //G
-	//	croll += -0.1;                                       
-	//}
-	//if ((GetAsyncKeyState(66) & 0x8000) != 0) { //B
-	//	cpitch = 0;
-	//	croll = 0;
-	//}
-
-	if ((GetAsyncKeyState(65) & 0x8000) != 0) { //A
-		m_vecPosition[0] += -0.01;                                
-	}
-	if ((GetAsyncKeyState(68) & 0x8000) != 0) { //D
-		m_vecPosition[0] += 0.01;
-	}
-	if ((GetAsyncKeyState(81) & 0x8000) != 0) { //Q
-		m_vecPosition[1] += 0.01;
-	}
-	if ((GetAsyncKeyState(69) & 0x8000) != 0) { //E
-		m_vecPosition[1] += -0.01;
-	}
-	if ((GetAsyncKeyState(87) & 0x8000) != 0) { //W
-		m_vecPosition[2] += -0.01;
-	}
-	if ((GetAsyncKeyState(83) & 0x8000) != 0) { //S
-		m_vecPosition[2] += 0.01;
-	}
-	if ((GetAsyncKeyState(82) & 0x8000) != 0) { //R
-		m_vecPosition[0] = 0;
-		m_vecPosition[1] = 0;
-		m_vecPosition[2] = 0;
-	}   
-}
-
-static double CalculateVectorMagnitude(double x, double y, double z)
-{
-	return sqrt((x * x) + (y * y) + (z * z));
-}
-
-static double CalculateVectorDot(double x1, double y1, double z1, double x2, double y2, double z2)
-{
-	return (x1 * x2) + (y1 * y2) + (z1 * z2);
 }
 #pragma endregion

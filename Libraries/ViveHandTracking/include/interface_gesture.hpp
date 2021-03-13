@@ -23,7 +23,7 @@ enum GestureBackend {
 enum GestureMode {
   GestureMode2DPoint = 0,   // Fastest mode, return one 2d point for hand, supported on all devices
   GestureMode3DPoint = 1,   // Return one 3d point for hand, supported on dual camera devices
-  GestureModeSkeleton = 2,  // Return skeleton (21 points) for hand, supported on PC and Focus
+  GestureModeSkeleton = 2,  // Return skeleton (21 points) for hand, supported on all devices
 };
 
 struct GestureOption {
@@ -46,23 +46,62 @@ enum GestureType {
 // Default threshold for pinch level. Levels higher than PINCH_LEVEL_THRESHOLD is pinching.
 #define PINCH_LEVEL_THRESHOLD 0.7f
 
+struct GestureVector3 {
+  float x, y, z;
+};
+
+struct GestureQuaternion {
+  float x, y, z, w;
+};
+
+// Struct containing information of pinch
+struct GesturePinchInfo {
+  // Returns pinch (thumb & index) level of the hand, within [0, 1], higher means more possible to
+  // pinch. If you only need a boolean value for pinch or not, you can use isPinching instead.
+  float pinchLevel;
+
+  // Returns if currently pinching or not.
+  // If you need a range value within [0, 1], you can use pinchLevel instead.
+  inline bool isPinching() const { return pinchLevel > PINCH_LEVEL_THRESHOLD; }
+
+  // Returns start position of the pinch ray.
+  GestureVector3 pinchStart;
+
+  // Returns direction of the pinch ray.
+  GestureVector3 pinchDirection;
+};
+
 // Struct containing detection result for one hand
 struct GestureResult {
   // Returns if this hand is left/right.
   bool isLeft;
-  // Returns position of the hand. The meaning of this field is different based on actual mode.
-  // Index (3*i, 3*i+1, 3*i+2) composes a (x, y, z) point. There is total 21 points.
-  // 2DPoint & 3DPoint: Only first point is used as the the position of hand.
-  // Skeleton: An array of 21 keypoints of the hand, values (0, 0, 0) indicates invalid point
+  // Returns position of palm center, use this if only need hand position instead of 21 joints.
+  GestureVector3 position;
+  // Returns position of the hand joints. Meaning of this field is different based on actual mode.
+  // 2DPoint & 3DPoint: Only first point is used as the position of hand.
+  // Skeleton: An array of 21 keypoints of the hand.
   // +x is right, +y is up, +z is front. Unit is meter.
-  float points[21 * 3];
+  // Use union to make code compatible with pervious version.
+  // points: Index (3*i, 3*i+1, 3*i+2) composes a (x, y, z) point. There is total 21 points.
+  union {
+    float points[21 * 3];  // deprecated, please use joints instead
+    GestureVector3 joints[21];
+  };
+  // Returns rotation of the hand joints. Meaning of this field is different based on actual mode.
+  // 2DPoint & 3DPoint: Only first element is used as the rotation of hand.
+  // Skeleton: Rotation for 21 keypoints of the hand.
+  // Identity rotation (assume hand is five gesture): palm face front and fingers point upward.
+  GestureQuaternion rotations[21];
   // Returns pre-defined gesture type.
   GestureType gesture;
   // Returns confidence of the hand, within [0, 1].
   float confidence;
-  // Returns pinch (thumb & index) level of the hand, within [0, 1], higher means more possible to
-  // pinch. Recommended threshold is 0.7 (PINCH_LEVEL_THRESHOLD).
-  float pinchLevel;
+  // Returns pinch information, since GesturePinchInfo for details.
+  // Use union to make code compatible with pervious version.
+  union {
+    float pinchLevel;  // deprecated, please use pinch instead
+    GesturePinchInfo pinch;
+  };
 };
 
 // Enum for possible errors in gesture detection
@@ -104,11 +143,18 @@ INTERFACE_GESTURE_EXPORTS int GetGestureResult(const GestureResult** points, int
 
 // This function should be called before StartGestureDetection to indicate if caller is providing
 // camera transform or not. Default is false. Call it after StartGestureDetection has no use.
-// If set to true, the result points are in camera coordinate instead of world coordinate and caller
-// is responsible for applying camera transform to the result points. This is useful if the camera
-// position is different from OpenVR & WaveVR raw HMD data, useful for cases like teleporting.
-// Currently, this is used in Unity & Unreal plugin
+// If set to true, hmd positions are not queried from raw HMD API from OpenVR or WaveVR.
+// The caller is responsible for managing hmd positions using either of the two methods below:
+// 1) Call SetCameraTransform function every frame to provide HMD transform (recommended)
+// 2) Apply camera transform to result points after GetGestureResult function call
+// This is useful if camera transform is different from raw HMD data, e.g. teleporting.
 INTERFACE_GESTURE_EXPORTS void UseExternalTransform(bool value);
+
+// Only takes effect if UseExternalTransform(true) is called before StartGestureDetection.
+// Set hmd transform for use. This function should be called regularly if HMD pose is changing.
+// The transform is used until new one is set. Default transform is idendity.
+INTERFACE_GESTURE_EXPORTS void SetCameraTransform(GestureVector3 position,
+                                                  GestureQuaternion rotation);
 
 #ifdef __cplusplus
 }
