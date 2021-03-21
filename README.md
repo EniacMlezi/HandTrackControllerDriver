@@ -14,7 +14,7 @@ Roadmap for the future:
 
 For a quick demo: https://streamable.com/8uod3l
 
-##Installation
+## Installation
 This project uses [microsoft/vcpkg](https://github.com/microsoft/vcpkg) for easier package management. 
 Because of [legal uncertainties](https://forum.vive.com/topic/9445-redistribute-the-sdk-through-vcpkg/) I have not yet created a PR for the Handtrack SDK.
 So for now: 
