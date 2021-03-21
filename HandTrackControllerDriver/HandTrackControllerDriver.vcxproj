@@ -118,18 +118,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\openvr\headers;$(SolutionDir)Libraries\ViveHandTracking\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(SolutionDir)\Libraries\openvr\lib\win32\openvr_api.lib;$(SolutionDir)\Libraries\ViveHandTracking\libs\Windows32\aristo_interface.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows32\aristo_interface.dll" "$(OutDir)"
-xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows32\cosmos_camera.dll" "$(OutDir)"
-
-xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
+      <Command>xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
 $(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
     </PostBuildEvent>
     <CustomBuildStep>
@@ -149,20 +146,17 @@ $(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\openvr\headers;$(SolutionDir)Libraries\ViveHandTracking\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(SolutionDir)\Libraries\openvr\lib\win32\openvr_api.lib;$(SolutionDir)\Libraries\ViveHandTracking\libs\Windows32\aristo_interface.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows32\aristo_interface.dll" "$(OutDir)"
-xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows32\cosmos_camera.dll" "$(OutDir)"
-
-xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
+      <Command>xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
 $(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
     </PostBuildEvent>
     <CustomBuildStep>
@@ -188,10 +182,7 @@ $(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows64\aristo_interface.dll" "$(OutDir)"
-xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows64\cosmos_camera.dll" "$(OutDir)"
-
-xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
+      <Command>xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
 "$(SteamVRDir)bin\win64\vrpathreg.exe" adddriver "$(OutDir)..\.."</Command>
     </PostBuildEvent>
     <CustomBuildStep>
@@ -211,20 +202,17 @@ xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\openvr\headers;$(SolutionDir)Libraries\ViveHandTracking\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(SolutionDir)\Libraries\openvr\lib\win64\openvr_api.lib;$(SolutionDir)\Libraries\ViveHandTracking\libs\Windows64\aristo_interface.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows64\aristo_interface.dll" "$(OutDir)"
-xcopy /y "$(SolutionDir)Libraries\ViveHandTracking\libs\Windows64\cosmos_camera.dll" "$(OutDir)"
-
-xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
+      <Command>xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
 "$(SteamVRDir)bin\win64\vrpathreg.exe" adddriver "$(OutDir)..\.."</Command>
     </PostBuildEvent>
     <CustomBuildStep>
