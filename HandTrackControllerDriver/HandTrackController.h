@@ -45,8 +45,6 @@ public:
 #pragma region HandTrackController
 	HandTrackController(HandControllerHand hand);
 	void UpdatePose(const GestureResult* gesture);
-	void UpdateLeftHand();
-	void UpdateRightHand();
 #pragma endregion
 
 private:	
@@ -58,5 +56,8 @@ private:
 	uint32_t m_trackedDeviceObjectId;
 	vr::PropertyContainerHandle_t m_propertyContainer;
 	vr::DriverPose_t m_last_pose;
+
+	vr::VRInputComponentHandle_t m_triggerClick;
+	vr::VRInputComponentHandle_t m_triggerValue;
 };
 

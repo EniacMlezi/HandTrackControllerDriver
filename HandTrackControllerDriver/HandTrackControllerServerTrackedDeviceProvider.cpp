@@ -75,8 +75,8 @@ void HandTrackControllerServerTrackedDeviceProvider::RunFrame()
 	}
 	else if (frameIndex == m_last_frameindex)
 	{
-		//m_leftcontroller->UpdatePose(nullptr);
-		//m_rightcontroller->UpdatePose(nullptr);
+		m_leftcontroller->UpdatePose(nullptr);
+		m_rightcontroller->UpdatePose(nullptr);
 		return;	//No new gesture yet, don't process.
 	}
 	m_last_frameindex = frameIndex;

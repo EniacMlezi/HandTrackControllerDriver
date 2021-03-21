@@ -11,7 +11,6 @@ vr::EVRInitError HandTrackController::Activate(uint32_t unObjectId)
 		m_propertyContainer = vr::VRProperties()->TrackedDeviceToPropertyContainer(m_trackedDeviceObjectId);
 
 		vr::VRProperties()->SetStringProperty(m_propertyContainer, vr::Prop_ModelNumber_String, "handtrack_controller");
-		vr::VRProperties()->SetInt32Property(m_propertyContainer, vr::Prop_DeviceClass_Int32, vr::TrackedDeviceClass_Controller);
 
 		switch (m_hand)
 		{
@@ -47,6 +46,18 @@ vr::EVRInitError HandTrackController::Activate(uint32_t unObjectId)
 		vr::VRProperties()->SetStringProperty(m_propertyContainer, vr::Prop_NamedIconPathDeviceAlertLow_String, controller_not_ready_file_cstr);
 		
 		vr::VRProperties()->SetStringProperty(m_propertyContainer, vr::Prop_NamedIconPathDeviceReady_String, controller_ready_file_cstr);
+
+		vr::EVRInputError error;
+		error = vr::VRDriverInput()->CreateBooleanComponent(m_propertyContainer, "/input/trigger/click", &m_triggerClick);
+		if (error)
+		{
+			vr::VRDriverLog()->Log("HandTrackController::Activate: VRDriverInputError!");
+		}
+		vr::VRDriverInput()->CreateScalarComponent(m_propertyContainer, "/input/trigger/value", &m_triggerValue, vr::VRScalarType_Absolute, vr::VRScalarUnits_NormalizedOneSided);
+		if (error)
+		{
+			vr::VRDriverLog()->Log("HandTrackController::Activate: VRDriverInputError!");
+		}
 
 		l_resultError = vr::VRInitError_None;
 	}
@@ -119,8 +130,9 @@ void HandTrackController::UpdatePose(const GestureResult *gesture)
 		l_pose.poseIsValid = true;
 		l_pose.result = vr::TrackingResult_Running_OK;
 
-		l_pose.qDriverFromHeadRotation.w = 0.707;
-		l_pose.qDriverFromHeadRotation.x = 0.707;
+		//Rotate the controller slightly forward for easieR point and click.
+		l_pose.qDriverFromHeadRotation.w = 0.843;
+		l_pose.qDriverFromHeadRotation.x = 0.537;
 		l_pose.qDriverFromHeadRotation.y = 0;
 		l_pose.qDriverFromHeadRotation.z = 0;
 
@@ -134,14 +146,19 @@ void HandTrackController::UpdatePose(const GestureResult *gesture)
 		l_pose.qWorldFromDriverRotation.y = -0.906;
 		l_pose.qWorldFromDriverRotation.z = 0;
 
+		//Actual controller position
 		l_pose.vecPosition[0] = gesture->position.x;
 		l_pose.vecPosition[1] = gesture->position.y;
 		l_pose.vecPosition[2] = -gesture->position.z;
 
-		l_pose.qRotation.w = -gesture->rotations[9].w;
-		l_pose.qRotation.x = gesture->rotations[9].x;
-		l_pose.qRotation.y = gesture->rotations[9].y;
-		l_pose.qRotation.z = -gesture->rotations[9].z;
+		//Rotation of the wrist joint (joint 0)
+		l_pose.qRotation.w = -gesture->rotations[0].w;
+		l_pose.qRotation.x = gesture->rotations[0].x;
+		l_pose.qRotation.y = gesture->rotations[0].y;
+		l_pose.qRotation.z = -gesture->rotations[0].z;
+
+		vr::VRDriverInput()->UpdateBooleanComponent(m_triggerClick, gesture->pinch.isPinching(), 0);
+		vr::VRDriverInput()->UpdateScalarComponent(m_triggerValue, gesture->pinch.pinchLevel, 0);
 	}
 
 	vr::VRServerDriverHost()->TrackedDevicePoseUpdated(m_trackedDeviceObjectId, l_pose, sizeof(vr::DriverPose_t));
