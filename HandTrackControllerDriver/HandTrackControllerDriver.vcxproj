@@ -126,8 +126,9 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
-$(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
+      <Command>xcopy /y /s "$(ProjectDir)Resources\resources\" "$(OutDir)..\..\resources\"
+xcopy /y "$(ProjectDir)Resources\driver.vrdrivermanifest" "$(OutDir)..\..\"
+"$(SteamVRDir)bin\win64\vrpathreg.exe" adddriver "$(OutDir)..\.."</Command>
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>
@@ -156,8 +157,9 @@ $(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
-$(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
+      <Command>xcopy /y /s "$(ProjectDir)Resources\resources\" "$(OutDir)..\..\resources\"
+xcopy /y "$(ProjectDir)Resources\driver.vrdrivermanifest" "$(OutDir)..\..\"
+"$(SteamVRDir)bin\win64\vrpathreg.exe" adddriver "$(OutDir)..\.."</Command>
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>
@@ -182,7 +184,8 @@ $(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
+      <Command>xcopy /y /s "$(ProjectDir)Resources\resources\" "$(OutDir)..\..\resources\"
+xcopy /y "$(ProjectDir)Resources\driver.vrdrivermanifest" "$(OutDir)..\..\"
 "$(SteamVRDir)bin\win64\vrpathreg.exe" adddriver "$(OutDir)..\.."</Command>
     </PostBuildEvent>
     <CustomBuildStep>
@@ -212,7 +215,8 @@ $(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /s "$(ProjectDir)Resources" "$(OutDir)..\..\resources\"
+      <Command>xcopy /y /s "$(ProjectDir)Resources\resources\" "$(OutDir)..\..\resources\"
+xcopy /y "$(ProjectDir)Resources\driver.vrdrivermanifest" "$(OutDir)..\..\"
 "$(SteamVRDir)bin\win64\vrpathreg.exe" adddriver "$(OutDir)..\.."</Command>
     </PostBuildEvent>
     <CustomBuildStep>
@@ -236,6 +240,23 @@ $(SteamVRDir)bin\win32\vrpathreg.exe adddriver "$(OutDir)..\.."</Command>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\driver.vrdrivermanifest" />
+    <None Include="Resources\resources\icons\handtrack_controller_left.svg" />
+    <None Include="Resources\resources\icons\handtrack_controller_right.svg" />
+    <None Include="Resources\resources\input\handtrack_controller_bindings.json" />
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_left_model.fbx" />
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_left_model.glb" />
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_left_model_slim.fbx" />
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_left_model_slim.glb" />
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_right_model.fbx" />
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_right_model.glb" />
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_right_model_slim.fbx" />
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_right_model_slim.glb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\resources\icons\controller_not_ready_left.png" />
+    <Image Include="Resources\resources\icons\controller_not_ready_right.png" />
+    <Image Include="Resources\resources\icons\controller_ready_left.png" />
+    <Image Include="Resources\resources\icons\controller_ready_right.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\resources">
+      <UniqueIdentifier>{32a1cfb0-74f2-44da-9520-c9eab15b909d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\resources\icons">
+      <UniqueIdentifier>{06431aec-44ba-414d-8fc5-f6800852854c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\resources\input">
+      <UniqueIdentifier>{b34dfce2-cda4-48ca-8c37-5e9192d26297}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\resources\rendermodels">
+      <UniqueIdentifier>{3395637f-43de-4643-aa90-470241d0c998}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\resources\rendermodels\handtrack_controller">
+      <UniqueIdentifier>{9e3a881c-3072-44e9-875a-a9f0b476afaa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -40,5 +55,52 @@
     <None Include="Resources\driver.vrdrivermanifest">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Resources\resources\icons\handtrack_controller_left.svg">
+      <Filter>Resource Files\resources\icons</Filter>
+    </None>
+    <None Include="Resources\resources\icons\handtrack_controller_right.svg">
+      <Filter>Resource Files\resources\icons</Filter>
+    </None>
+    <None Include="Resources\resources\input\handtrack_controller_bindings.json">
+      <Filter>Resource Files\resources\input</Filter>
+    </None>
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_left_model.fbx">
+      <Filter>Resource Files\resources\rendermodels\handtrack_controller</Filter>
+    </None>
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_left_model.glb">
+      <Filter>Resource Files\resources\rendermodels\handtrack_controller</Filter>
+    </None>
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_left_model_slim.fbx">
+      <Filter>Resource Files\resources\rendermodels\handtrack_controller</Filter>
+    </None>
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_left_model_slim.glb">
+      <Filter>Resource Files\resources\rendermodels\handtrack_controller</Filter>
+    </None>
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_right_model.fbx">
+      <Filter>Resource Files\resources\rendermodels\handtrack_controller</Filter>
+    </None>
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_right_model.glb">
+      <Filter>Resource Files\resources\rendermodels\handtrack_controller</Filter>
+    </None>
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_right_model_slim.fbx">
+      <Filter>Resource Files\resources\rendermodels\handtrack_controller</Filter>
+    </None>
+    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_right_model_slim.glb">
+      <Filter>Resource Files\resources\rendermodels\handtrack_controller</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\resources\icons\controller_not_ready_left.png">
+      <Filter>Resource Files\resources\icons</Filter>
+    </Image>
+    <Image Include="Resources\resources\icons\controller_not_ready_right.png">
+      <Filter>Resource Files\resources\icons</Filter>
+    </Image>
+    <Image Include="Resources\resources\icons\controller_ready_left.png">
+      <Filter>Resource Files\resources\icons</Filter>
+    </Image>
+    <Image Include="Resources\resources\icons\controller_ready_right.png">
+      <Filter>Resource Files\resources\icons</Filter>
+    </Image>
   </ItemGroup>
 </Project>
