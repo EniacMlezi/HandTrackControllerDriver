@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Target Name="Remove driver from SteamVR" AfterTargets="Clean" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32' or '$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Exec Command="&quot;$(SteamVRDir)bin\win32\vrpathreg.exe&quot; removedriver &quot;$(OutDir)..\..&quot;" ConsoleToMsBuild="true" />
-  </Target>
-  <Target Name="Remove driver from SteamVR" AfterTargets="Clean" Condition="'$(Configuration)|$(Platform)'=='Debug|x64' or '$(Configuration)|$(Platform)'=='Release|x64'">
-    <Exec Command="&quot;$(SteamVRDir)bin\win64\vrpathreg.exe&quot; removedriver &quot;$(OutDir)..\..&quot;" ConsoleToMsBuild="true" />
-  </Target>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -27,32 +21,32 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{edc65864-4759-4fb0-bf40-b006816ace38}</ProjectGuid>
-    <RootNamespace>HandTrackControllerDriver</RootNamespace>
+    <ProjectGuid>{67fd2bcb-3676-4677-83a0-4233ceffc8db}</ProjectGuid>
+    <RootNamespace>HandTrackControllerMonitor</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -65,52 +59,36 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="HandTrackControllerDriverProperties.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="HandTrackControllerDriverProperties.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="HandTrackControllerDriverProperties.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="HandTrackControllerDriverProperties.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>driver_handtrack</TargetName>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\bin\win32\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\bin\win32\</IntDir>
-    <CustomBuildAfterTargets>
-    </CustomBuildAfterTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>driver_handtrack</TargetName>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\bin\win32\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\bin\win32\</IntDir>
-    <CustomBuildAfterTargets>
-    </CustomBuildAfterTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>driver_handtrack</TargetName>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\bin\win64\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\bin\win64\</IntDir>
-    <CustomBuildAfterTargets>
-    </CustomBuildAfterTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>driver_handtrack</TargetName>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\bin\win64\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\bin\win64\</IntDir>
-    <CustomBuildAfterTargets>
-    </CustomBuildAfterTargets>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,26 +96,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy /y /s "$(ProjectDir)Resources\resources\" "$(OutDir)..\..\resources\"
-xcopy /y "$(ProjectDir)Resources\driver.vrdrivermanifest" "$(OutDir)..\..\"
-"$(SteamVRDir)bin\win64\vrpathreg.exe" adddriver "$(OutDir)..\.."</Command>
-    </PostBuildEvent>
-    <CustomBuildStep>
-      <Command>
-      </Command>
-    </CustomBuildStep>
-    <CustomBuildStep>
-      <Message>
-      </Message>
-    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -147,28 +110,13 @@ xcopy /y "$(ProjectDir)Resources\driver.vrdrivermanifest" "$(OutDir)..\..\"
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy /y /s "$(ProjectDir)Resources\resources\" "$(OutDir)..\..\resources\"
-xcopy /y "$(ProjectDir)Resources\driver.vrdrivermanifest" "$(OutDir)..\..\"
-"$(SteamVRDir)bin\win64\vrpathreg.exe" adddriver "$(OutDir)..\.."</Command>
-    </PostBuildEvent>
-    <CustomBuildStep>
-      <Command>
-      </Command>
-    </CustomBuildStep>
-    <CustomBuildStep>
-      <Message>
-      </Message>
-    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -176,26 +124,11 @@ xcopy /y "$(ProjectDir)Resources\driver.vrdrivermanifest" "$(OutDir)..\..\"
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy /y /s "$(ProjectDir)Resources\resources\" "$(OutDir)..\..\resources\"
-xcopy /y "$(ProjectDir)Resources\driver.vrdrivermanifest" "$(OutDir)..\..\"
-"$(SteamVRDir)bin\win64\vrpathreg.exe" adddriver "$(OutDir)..\.."</Command>
-    </PostBuildEvent>
-    <CustomBuildStep>
-      <Command>
-      </Command>
-    </CustomBuildStep>
-    <CustomBuildStep>
-      <Message>
-      </Message>
-    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -205,63 +138,16 @@ xcopy /y "$(ProjectDir)Resources\driver.vrdrivermanifest" "$(OutDir)..\..\"
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy /y /s "$(ProjectDir)Resources\resources\" "$(OutDir)..\..\resources\"
-xcopy /y "$(ProjectDir)Resources\driver.vrdrivermanifest" "$(OutDir)..\..\"
-"$(SteamVRDir)bin\win64\vrpathreg.exe" adddriver "$(OutDir)..\.."</Command>
-    </PostBuildEvent>
-    <CustomBuildStep>
-      <Command>
-      </Command>
-    </CustomBuildStep>
-    <CustomBuildStep>
-      <Message>
-      </Message>
-    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="HandTrackController.cpp" />
-    <ClCompile Include="HandTrackControllerServerTrackedDeviceProvider.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="HandControllerHand.h" />
-    <ClInclude Include="HandTrackController.h" />
-    <ClInclude Include="HandTrackControllerServerTrackedDeviceProvider.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\driver.vrdrivermanifest" />
-    <None Include="Resources\resources\icons\handtrack_controller_left.svg" />
-    <None Include="Resources\resources\icons\handtrack_controller_right.svg" />
-    <None Include="Resources\resources\input\handtrack_controller_bindings.json" />
-    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_left_model.fbx" />
-    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_left_model.glb" />
-    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_left_model_slim.fbx" />
-    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_left_model_slim.glb" />
-    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_right_model.fbx" />
-    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_right_model.glb" />
-    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_right_model_slim.fbx" />
-    <None Include="Resources\resources\rendermodels\handtrack_controller\vr_glove_right_model_slim.glb" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Resources\resources\icons\controller_not_ready_left.png" />
-    <Image Include="Resources\resources\icons\controller_not_ready_right.png" />
-    <Image Include="Resources\resources\icons\controller_ready_left.png" />
-    <Image Include="Resources\resources\icons\controller_ready_right.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HandTrackControllerMonitor\HandTrackControllerMonitor.vcxproj">
-      <Project>{67fd2bcb-3676-4677-83a0-4233ceffc8db}</Project>
-    </ProjectReference>
+    <ClCompile Include="HandTrackControllerMonitor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
