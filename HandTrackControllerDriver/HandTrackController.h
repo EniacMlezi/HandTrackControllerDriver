@@ -3,6 +3,8 @@
 #include <openvr_driver.h>
 #include <interface_gesture.hpp>
 #include <windows.h>
+#include <iostream>
+#include <sstream>
 #include "HandControllerHand.h"
 
 class HandTrackController final : public vr::ITrackedDeviceServerDriver
@@ -50,11 +52,9 @@ public:
 private:	
 	HandControllerHand m_hand;
 
-	double m_vecPosition[3];
-	double m_qRotation[4];
-
 	uint32_t m_trackedDeviceObjectId;
 	vr::PropertyContainerHandle_t m_propertyContainer;
+	vr::DriverPose_t m_pose;
 	vr::DriverPose_t m_last_pose;
 
 	vr::VRInputComponentHandle_t m_triggerClick;
