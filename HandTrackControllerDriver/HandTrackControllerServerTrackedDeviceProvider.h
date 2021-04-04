@@ -1,4 +1,6 @@
 #pragma once
+#include <codecvt>
+#include <locale>
 #include <openvr_driver.h>
 #include <interface_gesture.hpp>
 #include "HandTrackController.h"
@@ -46,6 +48,8 @@ public:
 private:
 	HandTrackController *m_leftcontroller = nullptr;
 	HandTrackController *m_rightcontroller = nullptr;
+
+	PROCESS_INFORMATION m_monitorProcessInfo;
 
 	int m_last_frameindex = -1;
 	bool m_initialized = false;

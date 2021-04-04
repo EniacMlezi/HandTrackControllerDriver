@@ -24,6 +24,29 @@ vr::EVRInitError HandTrackControllerServerTrackedDeviceProvider::Init(vr::IVRDri
 	m_rightcontroller = new HandTrackController(HandControllerHand::HCH_Right);
 	vr::VRServerDriverHost()->TrackedDeviceAdded("HandTrackLeft", vr::TrackedDeviceClass_Controller, m_leftcontroller);
 	vr::VRServerDriverHost()->TrackedDeviceAdded("HandTrackRight", vr::TrackedDeviceClass_Controller, m_rightcontroller);
+	
+
+	vr::ETrackedPropertyError l_error;
+	std::string installPath = vr::VRProperties()->GetStringProperty(pDriverContext->GetDriverHandle(), vr::Prop_InstallPath_String, &l_error);
+
+	std::stringstream pathStream;
+	pathStream << installPath << "\\bin\\";
+#if defined(_WIN64)
+	pathStream << "win64";
+#elif defined(_WIN32)
+	pathStream << "win32";
+#else
+#error Only WIN64 or WIN32 supported.
+#endif
+	pathStream << "\\HandTrackControllerMonitor.exe";
+
+	STARTUPINFO l_info = { sizeof(l_info) };
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	if (!CreateProcess(converter.from_bytes(pathStream.str()).c_str(), NULL, NULL, NULL, TRUE, CREATE_NO_WINDOW, NULL, NULL, &l_info, &m_monitorProcessInfo))
+	{
+		vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Init: Failed starting HandTrackMonitor.");
+		return vr::VRInitError_Init_Internal;
+	}
 
 	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Init: Exit.");
 	return vr::VRInitError_None;
@@ -32,6 +55,11 @@ vr::EVRInitError HandTrackControllerServerTrackedDeviceProvider::Init(vr::IVRDri
 void HandTrackControllerServerTrackedDeviceProvider::Cleanup()
 {
 	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Cleanup: Enter.");
+
+	WaitForSingleObject(m_monitorProcessInfo.hProcess, INFINITE);
+	CloseHandle(m_monitorProcessInfo.hProcess);
+	CloseHandle(m_monitorProcessInfo.hThread);
+	
 	VR_CLEANUP_SERVER_DRIVER_CONTEXT();
 	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Cleanup: Exit.");
 }
