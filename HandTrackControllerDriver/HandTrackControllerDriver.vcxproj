@@ -237,6 +237,7 @@ xcopy /y "$(ProjectDir)Resources\driver.vrdrivermanifest" "$(OutDir)..\..\"
     <ClInclude Include="HandControllerHand.h" />
     <ClInclude Include="HandTrackController.h" />
     <ClInclude Include="HandTrackControllerServerTrackedDeviceProvider.h" />
+    <ClInclude Include="HandTrackShared.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\driver.vrdrivermanifest" />

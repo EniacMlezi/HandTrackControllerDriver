@@ -18,14 +18,13 @@ HandTrackControllerServerTrackedDeviceProvider::~HandTrackControllerServerTracke
 vr::EVRInitError HandTrackControllerServerTrackedDeviceProvider::Init(vr::IVRDriverContext* pDriverContext)
 {
 	VR_INIT_SERVER_DRIVER_CONTEXT(pDriverContext);
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Init: Enter.");
+	HT_TRACE("Enter.");
 
 	m_leftcontroller = new HandTrackController(HandControllerHand::HCH_Left);
 	m_rightcontroller = new HandTrackController(HandControllerHand::HCH_Right);
 	vr::VRServerDriverHost()->TrackedDeviceAdded("HandTrackLeft", vr::TrackedDeviceClass_Controller, m_leftcontroller);
 	vr::VRServerDriverHost()->TrackedDeviceAdded("HandTrackRight", vr::TrackedDeviceClass_Controller, m_rightcontroller);
 	
-
 	vr::ETrackedPropertyError l_error;
 	std::string installPath = vr::VRProperties()->GetStringProperty(pDriverContext->GetDriverHandle(), vr::Prop_InstallPath_String, &l_error);
 
@@ -48,34 +47,29 @@ vr::EVRInitError HandTrackControllerServerTrackedDeviceProvider::Init(vr::IVRDri
 		return vr::VRInitError_Init_Internal;
 	}
 
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Init: Exit.");
+	HT_TRACE("Exit.");
 	return vr::VRInitError_None;
 }
 
 void HandTrackControllerServerTrackedDeviceProvider::Cleanup()
 {
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Cleanup: Enter.");
-
 	WaitForSingleObject(m_monitorProcessInfo.hProcess, INFINITE);
 	CloseHandle(m_monitorProcessInfo.hProcess);
 	CloseHandle(m_monitorProcessInfo.hThread);
 	
 	VR_CLEANUP_SERVER_DRIVER_CONTEXT();
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::Cleanup: Exit.");
 }
 
 const char* const* HandTrackControllerServerTrackedDeviceProvider::GetInterfaceVersions()
 {
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::GetInterfaceVersions: Enter.");
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::GetInterfaceVersions: Exit.");
+	HT_TRACE("Enter.");
+	HT_TRACE("Exit.");
 	return ms_interfaces;
 }
 
 void HandTrackControllerServerTrackedDeviceProvider::RunFrame()
 {
-#ifdef TRACE
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::RunFrame: Enter.");
-#endif // TRACE
+	HT_TRACE("Enter.");
 
 	//TODO: Move this to Init. The TrackedCamera must be set-up before the GestureDetection can start.
 	if (!m_initialized)
@@ -121,26 +115,24 @@ void HandTrackControllerServerTrackedDeviceProvider::RunFrame()
 		}
 	}
 
-#ifdef TRACE
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::RunFrame: Exit.");
-#endif // TRACE
+	HT_TRACE("Exit.");
 }
 
 bool HandTrackControllerServerTrackedDeviceProvider::ShouldBlockStandbyMode()
 {
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::ShouldBlockStandbyMode: Enter.");
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::ShouldBlockStandbyMode: Exit.");
+	HT_TRACE("Enter.");
+	HT_TRACE("Exit.");
 	return false;
 }
 
 void HandTrackControllerServerTrackedDeviceProvider::EnterStandby()
 {
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::EnterStandby: Enter.");
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::EnterStandby: Exit.");
+	HT_TRACE("Enter.");
+	HT_TRACE("Exit.");
 }
 
 void HandTrackControllerServerTrackedDeviceProvider::LeaveStandby()
 {
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::LeaveStandby: Enter.");
-	vr::VRDriverLog()->Log("HandTrackControllerServerTrackedDeviceProvider::LeaveStandby: EXit.");
+	HT_TRACE("Enter.");
+	HT_TRACE("EXit.");
 }

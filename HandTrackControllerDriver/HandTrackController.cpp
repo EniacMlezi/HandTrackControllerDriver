@@ -3,7 +3,7 @@
 #pragma region ITrackedDeviceServerDriver
 vr::EVRInitError HandTrackController::Activate(uint32_t unObjectId)
 {
-	vr::VRDriverLog()->Log("HandTrackController::Activate: Enter.");
+	HT_TRACE("Enter.");
 	vr::EVRInitError l_resultError = vr::VRInitError_Driver_Failed;
 	if (m_trackedDeviceObjectId == vr::k_unTrackedDeviceIndexInvalid)
 	{
@@ -62,32 +62,32 @@ vr::EVRInitError HandTrackController::Activate(uint32_t unObjectId)
 
 		l_resultError = vr::VRInitError_None;
 	}
-	vr::VRDriverLog()->Log("HandTrackController::Activate: Exit.");
+	HT_TRACE("Exit.");
 	return l_resultError;
 }
 
 void HandTrackController::Deactivate()
 {
-	vr::VRDriverLog()->Log("HandTrackController::Deactivate: Enter.");
+	HT_TRACE("Enter.");
 	m_trackedDeviceObjectId = vr::k_unTrackedDeviceIndexInvalid;
-	vr::VRDriverLog()->Log("HandTrackController::Deactivate: Exit.");
+	HT_TRACE("Exit.");
 }
 
 void HandTrackController::EnterStandby()
 {
-	vr::VRDriverLog()->Log("HandTrackController::EnterStandby: Enter.");
-	vr::VRDriverLog()->Log("HandTrackController::EnterStandby: Exit.");
+	HT_TRACE("Enter.");
+	HT_TRACE("Exit.");
 }
 
 void* HandTrackController::GetComponent(const char* pchComponentNameAndVersion)
 {
-	vr::VRDriverLog()->Log("HandTrackController::GetComponent: Enter.");
+	HT_TRACE("Enter.");
 	void* l_result = nullptr;
 	if (0 == strcmp(pchComponentNameAndVersion, vr::ITrackedDeviceServerDriver_Version))
 	{
 		l_result = dynamic_cast<vr::ITrackedDeviceServerDriver*>(this);
 	}
-	vr::VRDriverLog()->Log("HandTrackController::GetComponent: Exit.");
+	HT_TRACE("Exit.");
 	return l_result;
 }
 
@@ -127,7 +127,7 @@ void CalculateRotation(vr::HmdMatrix34_t& m, vr::HmdQuaternionf_t& q)
 
 void HandTrackController::DebugRequest(const char* pchRequest, char* pchResponseBuffer, uint32_t unResponseBufferSize)
 {
-	vr::VRDriverLog()->Log("HandTrackController::DebugRequest: Enter.");
+	HT_TRACE("Enter.");
 	
 	std::istringstream l_chaperoneDataSS(pchRequest);
 	vr::HmdMatrix34_t m;
@@ -152,13 +152,13 @@ void HandTrackController::DebugRequest(const char* pchRequest, char* pchResponse
 	m_pose.qWorldFromDriverRotation.y = q.y;
 	m_pose.qWorldFromDriverRotation.z = q.z;
 
-	vr::VRDriverLog()->Log("HandTrackController::DebugRequest: Exit.");
+	HT_TRACE("Exit.");
 }
 
 vr::DriverPose_t HandTrackController::GetPose()
 {
-	vr::VRDriverLog()->Log("HandTrackController::GetPose: Enter.");
-	vr::VRDriverLog()->Log("HandTrackController::GetPose: Exit.");
+	HT_TRACE("Enter.");
+	HT_TRACE("Exit.");
 	return m_last_pose;
 }
 #pragma endregion

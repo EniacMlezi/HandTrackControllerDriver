@@ -3,6 +3,7 @@
 #include <locale>
 #include <openvr_driver.h>
 #include <interface_gesture.hpp>
+#include "HandTrackShared.h"
 #include "HandTrackController.h"
 
 class HandTrackControllerServerTrackedDeviceProvider final : public vr::IServerTrackedDeviceProvider

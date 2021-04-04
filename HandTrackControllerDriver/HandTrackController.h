@@ -5,6 +5,7 @@
 #include <windows.h>
 #include <iostream>
 #include <sstream>
+#include "HandTrackShared.h"
 #include "HandControllerHand.h"
 
 class HandTrackController final : public vr::ITrackedDeviceServerDriver
