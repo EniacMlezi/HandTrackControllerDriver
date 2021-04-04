@@ -14,7 +14,11 @@ Roadmap for the future:
 
 For a quick demo: https://streamable.com/8uod3l
 
-## Installation
+
+## Install from Release
+Create a 'handtrack' folder in your SteamVR drivers path (usually 'C:\Program Files (x86)\Steam\steamapps\common\SteamVR\drivers'). Extract the release contents in this new folder. Now you're all set! 
+
+## Compile and Run
 This project uses [microsoft/vcpkg](https://github.com/microsoft/vcpkg) for easier package management. 
 Because of [legal uncertainties](https://forum.vive.com/topic/9445-redistribute-the-sdk-through-vcpkg/) I have not yet created a PR for the Handtrack SDK.
 So for now: 
@@ -28,5 +32,11 @@ cd vcpkg
 ./vcpkg integrate install
 ```
 
-Now you can open the Visual Studio project. Starting the debugger will automatically install the driver, launch SteamVR and debug the application. 
+### Configure Paths
+Under "Property Manager" in Visual Studio, expand any of the configurations and find "Paths". Right click and select "Properties" and then "User Macros". Modify the paths to match your setup. InstallDir will be created, and will be configured as an external driver path for SteamVR.
+
+### Build and Run
+Starting the debugger will automatically install the driver, launch SteamVR and debug the application. 
+
+### Clean
 Cleaning the solution will uninstall the driver.
